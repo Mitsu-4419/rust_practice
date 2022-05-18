@@ -23,24 +23,6 @@ impl Map {
         }
     }
 
-    pub fn render(&self, ctx:&mut BTerm, camera: &Camera){
-        for y in camera.top_y..camera.bottom_y{
-            for x in camera.left_x..camera.right_x{
-                let idx = map_idx(x,y);
-                if self.in_bounds(Point::new(x,y)){
-                    match self.tiles[idx]{
-                        TileType::Floor =>{
-                            ctx.set(x - camera.left_x,y-camera.top_y, WHITE, BLACK, to_cp437('.'))
-                        }
-                        TileType::Wall =>{
-                            ctx.set(x-camera.left_x,y-camera.top_y, WHITE, BLACK, to_cp437('#'))
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     pub fn try_idx(&self, point :Point) -> Option<usize>{
         if !self.in_bounds(point){
             None
